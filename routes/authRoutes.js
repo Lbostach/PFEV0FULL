@@ -14,6 +14,7 @@ router.get('/Api/logout', authController.logout_get);
 
 // Routes to add,delete and update a new offer
 router.post('/Api/offres', offreController.addOffre);
+router.get('/Api/offres', offreController.getOffres);
 router.delete('/Api/offres/:id', offreController.deleteOffre);
 router.put('/Api/offres/:id', offreController.updateOffre);
 
