@@ -65,7 +65,7 @@ candidatSchema.statics.login = async function(email, password) {
 };
 
 // Create the Candidat model based on the schema
-const Candidat = mongoose.model('candidat', candidatSchema);
+const Candidat = mongoose.model('Candidat', candidatSchema);
 
 // Export the model
 module.exports = Candidat;
