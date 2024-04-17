@@ -1,14 +1,5 @@
 const Candidature = require('../models/Candidature');
 
-// Controller method to add a new candidature
-const addCandidature = async (req, res) => {
-  try {
-    const nouvelleCandidature = await Candidature.create(req.body);
-    res.status(201).json({ candidature: nouvelleCandidature });
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-};
 
 // Controller method to get all candidatures
 const getCandidatures = async (req, res) => {
