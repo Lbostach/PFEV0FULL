@@ -80,7 +80,7 @@ console.log(user && user.candidat);
   onClick={ () => {
    
     localStorage.removeItem('token');
-    localStorage.removeItem('candidatId');
+    localStorage.removeItem('idCandidat');
     router.push('/');
     
   }}
