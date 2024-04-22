@@ -15,19 +15,80 @@ import { useEffect, useState } from 'react';
 
 function MesCandidatures() {
   const router = useRouter()
-  const [candidature, setCandidature] = useState(null);
+  const [candidatures, setCandidatures] = useState([]);
+  const [user, setUser] = useState(null);
+
+  const deleteCandidature = async (id: string) => {
+    try {
+      // Make a DELETE request to your server
+      await fetch(`http://localhost:3001/Api/candidatures/${id}`, { method: 'DELETE' });
+      // Refresh the page or update the state to remove the deleted candidature from the UI
+    } catch (error) {
+      console.error('Failed to delete candidature:', error);
+    }
+  };
+
+
   useEffect(() => {
-    fetch('localhost:3001/Api/candidatures')
+    const token = localStorage.getItem('token');
+    const idCandidat = localStorage.getItem('idCandidat');
+    fetch(`http://localhost:3001/Api/candidat?idCandidat=${idCandidat}`, { 
+      
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'idCandidat': idCandidat || '', // Ensure idCandidat is a string
+      },
+      
+    })
+    .then(response => response.json())
+    .then(data => {setUser(data);
+  
+  })
+    .catch(error => console.error('Error:', error));
+}, []);
+
+useEffect(() => {
+  const token = localStorage.getItem('token');
+  const idCandidat = localStorage.getItem('idCandidat');
+  fetch(`http://localhost:3001/Api/candidat?idCandidat=${idCandidat}`, { 
+    
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'idCandidat': idCandidat || '', // Ensure idCandidat is a string
+    },
+    
+  })
+  .then(response => response.json())
+  .then(data => {setUser(data);
+
+})
+  .catch(error => console.error('Error:', error));
+}, []);
+
+
+
+  useEffect(() => {
+    const idCandidat = localStorage.getItem('idCandidat');
+    fetch(`http://localhost:3001/Api/candidatures?idCandidat=${idCandidat}`)
       .then(response => response.json())
-      .then(data => setCandidature(data))
+      .then(data => {
+        setCandidatures(data.candidatures);
+       
+      }
+    )
       .catch(error => console.error('Error:', error));
   }, []);
+
+  
+
   return (
     
     <div className="flex w-full h-screen min-h-screen">
       <div className="hidden md:flex w-60 flex-col shrink-0 border-r bg-gray-100/50 dark:bg-gray-800/50">
         <div className="flex w-full items-center h-14 px-4 bg-white border-b border-gray-100 dark:bg-gray-950 dark:border-gray-950/10">
-          <Link className="text-xl font-bold" href="#">
+          <Link className="text-xl font-bold" href="/">
             <svg
               fill="#000000"
               version="1.1"
@@ -69,6 +130,7 @@ function MesCandidatures() {
   onClick={ () => {
    
     localStorage.removeItem('token');
+    localStorage.removeItem('idCandidat');
     router.push('/');
     
   }}
@@ -85,26 +147,32 @@ function MesCandidatures() {
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-gray-300 animate-pulse dark:bg-gray-700" />
               <div className="w-9 h-9 overflow-hidden bg-gray-300 rounded-full dark:bg-gray-700">
-                <Avatarage />
+                <Avatarage user={user}/>
               </div>
             </div>
           </div>
         </div>
-        <div className="flex p-4 md:p-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Candidature 1</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-500 text-sm font-medium">
-                Description de la candidature 1
-              </p>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              
-              <Button className="mx-8 bg-red-500">Supprimer la candidature</Button>
-            </CardFooter>
-          </Card>
+        <div className="flex flex-wrap p-4 md:p-6">
+        { candidatures.map((candidature) => {
+    console.log(candidature.idOffre.titre);
+    
+    return (
+      
+      <Card className="w-1/3 " key={candidature._id}>
+        <CardHeader>
+          <CardTitle className="-mx-1">{candidature.idOffre.titre}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-gray-500 text-sm font-medium">
+            {candidature.idOffre.description}
+          </p>
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <Button className="mx-8 bg-red-500" onClick={() => deleteCandidature(candidature._id)}>Supprimer la candidature</Button>
+        </CardFooter>
+      </Card>
+    );
+  })}
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ export default function Component() {
         <nav className="ml-auto flex items-center gap-4 text-sm font-medium md:gap-6">
           <Link
             className="text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-            href="/login"
+            href="/dashboard"
           >
             Carrières
           </Link>

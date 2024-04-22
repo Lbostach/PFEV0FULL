@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-const withAuth = (WrappedComponent) => {
+const WithAuth = (WrappedComponent) => {
   const WithAuth = (props) => {
     const Router = useRouter();
     const token = localStorage.getItem('token');
@@ -20,4 +20,4 @@ const withAuth = (WrappedComponent) => {
   return WithAuth;
 };
 
-export default withAuth;
+export default WithAuth;

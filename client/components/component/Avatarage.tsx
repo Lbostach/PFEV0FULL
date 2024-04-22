@@ -6,12 +6,13 @@ import {
   SheetContent,
   SheetHeader,
 } from "@/components/ui/sheet";
-import { useEffect, useState } from 'react';
 
 
-
-
-export default function AvatarageCandidat() {
+export default function Avatarage( {user} ) {
+  if (!user) {
+    return null; // Or return a loading spinner, placeholder, etc.
+  }
+  
 
   return (
     <Sheet>
@@ -33,17 +34,17 @@ export default function AvatarageCandidat() {
           <div className="flex flex-col items-center justify-center text-xl font-bold overflow-hidden">
             <Image
               alt="Avatar"
-              className="object-cover w-full h-full border rounded-full"
+              className="object-cover w-1/2 h-1/2 border rounded-full"
               height={200}
               src="/personplaceholder.jpg"
               width={200}
             />
-            <div className="my-4">Firstname Lastname</div>
+            <div className="my-4">{user.candidat.firstName} {user.candidat.lastName}</div>
           </div>
-          <div className="flex flex-col">
+          <div>
             <ul>
-              <li>Niveau d'étude :</li>
-              <li className="my-2">Domaine :</li>
+              <li>Niveau d'étude : {user.candidat.studyLevel}</li>
+              <li className="my-2">Domaine : {user.candidat.domain}</li>
             </ul>
             <div className="my-4 font-bold">
               Compétences :

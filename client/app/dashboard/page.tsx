@@ -1,13 +1,39 @@
 'use client'
 import Link from "next/link";
 import JobListings from "../joblistings";
-import AvatarageCandidat from "../../components/component/Avatarage";
+import Avatarage from "../../components/component/Avatarage";
 import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import WithAuth from "@/components/component/withAuth";
+import { useEffect, useState } from "react";
+
 
 function Dashboard() {
-  const router = useRouter()
+
+  const [user, setUser] = useState(null);
+  const router = useRouter();
+
+
+  useEffect(() => {
+      const token = localStorage.getItem('token');
+      const idCandidat = localStorage.getItem('idCandidat');
+      fetch(`http://localhost:3001/Api/candidat?idCandidat=${idCandidat}`, { 
+        
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          'idCandidat': idCandidat || '', // Ensure idCandidat is a string
+        },
+        
+      })
+      .then(response => response.json())
+      .then(data => {setUser(data);
+    
+    })
+      .catch(error => console.error('Error:', error));
+  }, []);
+
+console.log(user && user.candidat);
   return (
     <div className="flex w-full h-screen min-h-screen">
       <div className="hidden md:flex w-60 flex-col shrink-0 border-r bg-gray-100/50 dark:bg-gray-800/50">
@@ -54,6 +80,7 @@ function Dashboard() {
   onClick={ () => {
    
     localStorage.removeItem('token');
+    localStorage.removeItem('candidatId');
     router.push('/');
     
   }}
@@ -68,13 +95,13 @@ function Dashboard() {
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-gray-300 animate-pulse dark:bg-gray-700" />
               <div className="w-9 h-9 overflow-hidden bg-gray-300 rounded-full dark:bg-gray-700">
-              <AvatarageCandidat />
+              <Avatarage user={user}/>
               </div>
             </div>
           </div>
         </div>
         <div className="flex  p-4 md:p-6">
-          <JobListings />
+          <JobListings loggedInUser={user} />
         </div>
       </div>
     </div>

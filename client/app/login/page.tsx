@@ -60,6 +60,8 @@ export default function Page() {
    const values = await response.json();
 
    localStorage.setItem("token", values.token);
+   localStorage.setItem("idCandidat", values.candidat);
+   
    console.log(values);
    router.push('/dashboard');
   
@@ -84,7 +86,7 @@ export default function Page() {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-2"
+              className="space-y-4"
             >
               <FormField
                 control={form.control}
@@ -105,7 +107,7 @@ export default function Page() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input type="password" {...field} />
                     </FormControl>
                   </FormItem>
                 )}

@@ -28,7 +28,7 @@ export default function AvatarageStaff() {
           <div className="flex flex-col items-center justify-center text-xl font-bold overflow-hidden">
             <Image
               alt="Avatar"
-              className="object-cover w-full h-full border rounded-full"
+              className="object-cover w-1/2 h-1/2 border rounded-full"
               height={500}
               src="/personplaceholder.jpg"
               width={500}

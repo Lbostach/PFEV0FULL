@@ -58,6 +58,7 @@ export default function RecruiterDashboard() {
   onClick={ () => {
    
     localStorage.removeItem('token');
+    localStorage.removeItem('idCandidat');
     router.push('/');
     
   }}
