@@ -18,4 +18,6 @@ router.get('/Api/offres', offreController.getOffres);
 router.delete('/Api/offres/:id', offreController.deleteOffre);
 router.put('/Api/offres/:id', offreController.updateOffre);
 
+router.post('/Api/recruteur/login', authController.reclogin_post);
+
 module.exports = router;

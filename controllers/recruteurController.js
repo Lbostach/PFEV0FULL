@@ -12,6 +12,25 @@ const createRecruteur = async (req, res) => {
 };
 
 
+
+const getRecruteur = async(req, res) => {
+    
+    try {
+        
+        const recruteurId = req.query.idRecruteur;
+
+        const recruteur = await Recruteur.findById(recruteurId);
+
+        res.status(200).json({ recruteur });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+
+
+
 module.exports = {
-    createRecruteur
+    createRecruteur,
+    getRecruteur
 };

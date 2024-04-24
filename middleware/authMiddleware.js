@@ -27,15 +27,18 @@ const token = req.cookies.jwt;
     jwt.verify(token, 'app secrets', async (err, decodedToken) => {
       if (err) {
         res.locals.candidat = null;
+        req.user= null;
         next();
       } else {
         let candidat = await candidat.findById(decodedToken.id);
         res.locals.candidat = candidat;
+        req.user = candidat;
         next(); 
       }
     });
   } else {
     res.locals.candidat = null;
+    req.user = null;
     next();
   }
 };
