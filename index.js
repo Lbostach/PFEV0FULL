@@ -5,6 +5,7 @@ const authRoutes = require('./routes/authRoutes');
 const candidatureRoutes = require('./routes/candidatureRoutes');
 const offreRoutes = require('./routes/offreRoutes');
 const recruteurRoutes = require('./routes/recruteurRoutes');
+const candidatRoutes = require('./routes/candidatRoutes');
 const cookieParser = require('cookie-parser');
 const { requireAuth, checkCandidat } = require('./middleware/authMiddleware');
 const socket = require('socket.io');
@@ -24,7 +25,7 @@ mongoose.connect("mongodb+srv://recrutement:7FuNmWUbzd8cNv75@cluster0.75dg1bl.mo
   });
 
 app.get('*', checkCandidat);
-app.use(authRoutes,recruteurRoutes,offreRoutes,candidatureRoutes);
+app.use(authRoutes,recruteurRoutes,offreRoutes,candidatureRoutes,candidatRoutes);
 app.listen(3001, () => {
     console.log('Server is running on port 3001');
 });

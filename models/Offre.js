@@ -25,6 +25,10 @@ const offreSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    idRecruteur: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Recruteur'
+    },
     domaine: {
         type: String,
         required: true

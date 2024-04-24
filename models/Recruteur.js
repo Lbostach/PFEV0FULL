@@ -2,15 +2,17 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const recruteurSchema = new mongoose.Schema({
-    firstName: {
-        type: String,
-        required: true
-    },
-    lastName: {
-        type: String,
-        required: true
-    },
     email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    nom: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    prenom: {
         type: String,
         required: true,
         unique: true
@@ -36,8 +38,21 @@ recruteurSchema.pre('save', async function(next) {
 });
 
 recruteurSchema.methods.comparePassword = async function(candidatePassword) {
-    return bcrypt.compare(candidatePassword, this.password);
+    return bcrypt.compare(candidatePassword, this.password);  
 };
+
+recruteurSchema.statics.login = async function(email, password) {
+    const recruteur = await this.findOne({ email });
+    if (recruteur) {
+      const auth = await bcrypt.compare(password, recruteur.password);
+      if (auth) {
+        return recruteur;
+      }
+      throw Error('incorrect password');
+    }
+    throw Error('incorrect email');
+};
+
 
 const Recruteur = mongoose.model('Recruteur', recruteurSchema);
 
