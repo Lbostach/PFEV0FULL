@@ -44,7 +44,7 @@ export default function Page() {
     
     console.log(values);
   try {
-    const response = await fetch("http://localhost:3001/Api/login", {
+    const response = await fetch("http://localhost:3001/Api/recruteur/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,10 +60,10 @@ export default function Page() {
    const values = await response.json();
 
    localStorage.setItem("token", values.token);
-   localStorage.setItem("idCandidat", values.candidat);
+   localStorage.setItem("idRecruteur", values.recruteur);
    
    console.log(values);
-   router.push('/dashboard');
+   router.push('/recruiter/dashboard');
   
 
   } catch (error) {
@@ -117,19 +117,7 @@ export default function Page() {
               </Button>
             </form>
           </Form>
-          <div className="mt-4 my-4 text-center text-sm">
-            Don't have an account?
-            <Link className="underline mx-1" href="/signup">
-              Sign up
-            </Link>
-          </div>
-          <Link className="text-sm flex items-center justify-center underline" href="/recruiter/login">
-          Êtes-vous un recruteur? 
-          </Link>
         </Card>
-        <div className="text-sm flex items-center justify-center"> 
-          
-        </div>
       </div>
     </div>
   );

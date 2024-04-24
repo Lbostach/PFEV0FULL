@@ -1,16 +1,16 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-const WithAuth = (WrappedComponent) => {
-  const WithAuth = (props) => {
+const WithAuthRec = (WrappedComponent) => {
+  const WithAuthRec = (props) => {
     const Router = useRouter();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
       const token = localStorage.getItem('token');
-      const idCandidat = localStorage.getItem('idCandidat');
-      if (!token && !idCandidat) {
-        Router.replace('/login');
+      const idRecruteur = localStorage.getItem('idRecruteur');
+      if (!token && !idRecruteur) {
+        Router.replace('/recruiter/login');
       } else {
         setIsAuthenticated(true);
       }
@@ -19,9 +19,9 @@ const WithAuth = (WrappedComponent) => {
     return isAuthenticated ? <WrappedComponent {...props} /> : null;
   };
 
-  WithAuth.displayName = 'WithAuth';
+  WithAuthRec.displayName = 'WithAuthRec';
 
-  return WithAuth;
+  return WithAuthRec;
 };
 
-export default WithAuth;
+export default WithAuthRec;

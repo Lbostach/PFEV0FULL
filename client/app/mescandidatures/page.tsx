@@ -23,6 +23,7 @@ function MesCandidatures() {
       // Make a DELETE request to your server
       await fetch(`http://localhost:3001/Api/candidatures/${id}`, { method: 'DELETE' });
       // Refresh the page or update the state to remove the deleted candidature from the UI
+      location.reload();
     } catch (error) {
       console.error('Failed to delete candidature:', error);
     }

@@ -7,7 +7,7 @@ import {
   SheetContent,
   SheetHeader,
 } from "@/components/ui/sheet";
-export default function AvatarageStaff() {
+export default function AvatarageStaff({user}) {
   return (
     <Sheet>
       <SheetTrigger>
@@ -33,7 +33,7 @@ export default function AvatarageStaff() {
               src="/personplaceholder.jpg"
               width={500}
             />
-            <div className="my-4">Firstname Lastname</div>
+            <div className="my-4">{user?.recruteur.email}</div>
           </div>
           
         </SheetHeader>
