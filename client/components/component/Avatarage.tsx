@@ -179,8 +179,9 @@ export default function Avatarage({ user }) {
           className="object-cover w-full h-full border"
           height={36}
           src={
-            `http://localhost:3001/${user.candidat.picture}` ||
-            "/personplaceholder.jpg"
+            user.candidat.picture
+              ? `http://localhost:3001/${user.candidat.picture}`
+              : "/personplaceholder.jpg"
           }
           style={{
             aspectRatio: "36/36",
@@ -197,8 +198,9 @@ export default function Avatarage({ user }) {
               className="object-cover w-1/2 h-1/2 border rounded-full"
               height={200}
               src={
-                `http://localhost:3001/${user.candidat.picture}` ||
-                "/personplaceholder.jpg"
+                user.candidat.picture
+                  ? `http://localhost:3001/${user.candidat.picture}`
+                  : "/personplaceholder.jpg"
               }
               width={200}
             />
