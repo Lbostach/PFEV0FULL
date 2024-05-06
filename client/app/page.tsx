@@ -46,6 +46,7 @@ return(
             src="/Teamwork.jpg"
             width={1366}
             height={800}
+            alt='Equipe de travail'
           />
         </div>
       </main>

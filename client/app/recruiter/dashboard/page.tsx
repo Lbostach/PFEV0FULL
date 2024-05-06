@@ -11,26 +11,27 @@ import {
 import { Button } from "../../../components/ui/button";
 import AvatarageStaff from "../../../components/component/AvatarageStaff";
 import WithAuthRec from "../../../components/component/withAuthRec";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {Input} from "@/components/ui/input";
+
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 function RecruiterDashboard() {
 
   const router = useRouter();
-  
   const [user, setUser] = useState(null);
   const [offres, setOffres] = useState([]);
   const [newTitle, setNewTitle] = useState('');
   const [newDescription, setNewDescription] = useState('');
   const [candidats, setCandidats] = useState([]);
+  const [selectedCandidat, setSelectedCandidat] = useState(null);
 
 const handleTitleChange = (event) => {
   setNewTitle(event.target.value);
@@ -122,6 +123,7 @@ const handleSaveClick = async (id) => {
 
 async function handleCandidatesClick(offreId) {
   // Fetch all "Candidature" objects
+  
   const candidatures = await fetch('http://localhost:3001/Api/candidatures').then(res => res.json());
  const Ccandidatures = candidatures.candidatures;
 
@@ -140,14 +142,12 @@ async function handleCandidatesClick(offreId) {
   ));
 
   setCandidats(fetchedCandidats);
-  console.log(candidats);
   
 }
 
-
-
-
+const serverUrl="http://localhost:3001/";
   return (
+    
     <>
     <div className="flex w-full h-screen min-h-screen">
       <div className="hidden md:flex w-60 flex-col shrink-0 border-r bg-gray-100/50 dark:bg-gray-800/50">
@@ -210,6 +210,62 @@ async function handleCandidatesClick(offreId) {
           </div>
         </div>
         <div className="p-2 md:p-4">
+        {selectedCandidat && (
+          <div className="fixed inset-0 bg-black flex items-center justify-center bg-opacity-60">
+            <Card>
+              <button className="mx-2 text-s border rounded px-2 my-1" onClick={() => setSelectedCandidat(null)}>X</button>
+              <CardHeader>
+                <div className="flex items-center justify-center">
+              <img
+        src={`${serverUrl}${selectedCandidat.picture || "/personplaceholder.jpg"}`}
+        alt=""
+        width={200}
+        height={200}
+        className="rounded-full"
+        />
+        </div>
+        <div className="font-bold text-xl flex items-center justify-center">{selectedCandidat.firstName} {selectedCandidat.lastName}</div>
+
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2 flex flex-col items-center">
+                  <div>Niveau d'étude : {selectedCandidat.studyLevel}</div>
+                  <div>Domaine : {selectedCandidat.domain}</div>
+                  <div>
+              {selectedCandidat.skills.map((item, index) => (
+                <div className="text-m" key={index}>
+                  ● {item}
+                </div>
+              ))}
+            </div>
+            <div> Documents :
+              {selectedCandidat.documents.map((document, index) => {
+                // Extract the file name from the path
+                const fileName = document.split("\\").pop();
+
+                return (
+                  <div key={index} className="file-container">
+                    <img
+                      src="/pdf.png"
+                      width={100}
+                      height={100} 
+                      alt={fileName}
+                      onClick={() => window.open(`${serverUrl}${document}`, "_blank")}
+                    />
+                    
+                    <p className="text-xs" onClick={() => window.open(`${serverUrl}/${document}`, "_blank")}>
+                      {fileName}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+                </div>
+              </CardContent>
+            </Card>
+            </div>
+          )}
+
         {offres.map((offre) => (
     <Card className="p-1 my-4 border-gray-400" key={offre._id}>
       <CardHeader>
@@ -232,39 +288,40 @@ async function handleCandidatesClick(offreId) {
 
 
 
-        <Dialog>
-          <DialogTrigger>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
             <Button onClick={() => handleCandidatesClick(offre._id)}>
           Consulter les candidats
           </Button>
-          </DialogTrigger>
-          <DialogContent>
-          <DialogHeader>
-          <DialogDescription className="flex flex-1">
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+         <DropdownMenuLabel>Candidats</DropdownMenuLabel> 
+          
           {Array.isArray(candidats) && candidats.map(index => {
   const candidat = index.candidat;
   return (
     
-    <Card key={candidat._id}>
-      <CardHeader>
-        <CardTitle>
-          {candidat.firstName} {candidat.lastName}
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="text-gray-500 text-sm font-medium">
-          {candidat.email}
-        </p>
-      </CardContent>
-    </Card>
+    <DropdownMenuItem key={candidat._id} onClick={() => setSelectedCandidat(candidat)}>
+      <img
+        src={`${serverUrl}${candidat.picture || "/personplaceholder.jpg"}`}
+        alt=""
+        width={24}
+        height={24}
+        className="rounded-full"
+        />
+        <div className="mx-1">
+      {candidat.firstName} {candidat.lastName}
+      </div>
+      
+    </DropdownMenuItem>
     
   );
 })}
-</DialogDescription>
-          </DialogHeader>
-          </DialogContent>
-          </Dialog>
+         
+          </DropdownMenuContent>
+          </DropdownMenu>
 
+          
 
 
           {editMode === offre._id ? (
