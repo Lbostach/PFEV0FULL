@@ -212,7 +212,7 @@ const serverUrl="http://localhost:3001/";
         <div className="p-2 md:p-4">
         {selectedCandidat && (
           <div className="fixed inset-0 bg-black flex items-center justify-center bg-opacity-60">
-            <Card>
+            <Card className="overflow-auto">
               <button className="mx-2 text-s border rounded px-2 my-1" onClick={() => setSelectedCandidat(null)}>X</button>
               <CardHeader>
                 <div className="flex items-center justify-center">
@@ -244,11 +244,11 @@ const serverUrl="http://localhost:3001/";
                 const fileName = document.split("\\").pop();
 
                 return (
-                  <div key={index} className="file-container">
+                  <div key={index} className="flex flex-col items-center file-container">
                     <img
                       src="/pdf.png"
-                      width={100}
-                      height={100} 
+                      width={50}
+                      height={50} 
                       alt={fileName}
                       onClick={() => window.open(`${serverUrl}${document}`, "_blank")}
                     />
@@ -260,7 +260,14 @@ const serverUrl="http://localhost:3001/";
                 );
               })}
             </div>
+            <div className="flex space-x-2 justify-between items-center">
+            <Button className="my-4 bg-blue-600">Planifier un entretien</Button>
+            <Button className="bg-green-800">Accepter le candidat</Button>
+            </div>
+            <Button className="bg-red-500">Refuser le candidat</Button>
+            
                 </div>
+                
               </CardContent>
             </Card>
             </div>
