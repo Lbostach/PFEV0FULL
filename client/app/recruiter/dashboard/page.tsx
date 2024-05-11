@@ -14,6 +14,7 @@ import WithAuthRec from "../../../components/component/withAuthRec";
 import React, { useState, useEffect } from "react";
 import {Input} from "@/components/ui/input";
 
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,6 +24,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+import {AddOffreForm} from "@/components/component/addOffreForm";
+
 function RecruiterDashboard() {
 
   const router = useRouter();
@@ -30,8 +33,9 @@ function RecruiterDashboard() {
   const [offres, setOffres] = useState([]);
   const [newTitle, setNewTitle] = useState('');
   const [newDescription, setNewDescription] = useState('');
-  const [candidats, setCandidats] = useState([]);
+  const [candidats, setCandidats] = useState<any[]>([]);
   const [selectedCandidat, setSelectedCandidat] = useState(null);
+  const [showAddOffreForm, setShowAddOffreForm] = useState(false);
 
 const handleTitleChange = (event) => {
   setNewTitle(event.target.value);
@@ -83,7 +87,7 @@ useEffect(() => {
 const deleteOffre = async (id: string) => {
   try {
     await fetch(`http://localhost:3001/Api/offres/${id}`, { method: 'DELETE' });
-    // Refresh the page or update the state to remove the deleted offre from the UI
+    location.reload();
   } catch (error) {
     console.error('Failed to delete offre:', error);
   }
@@ -122,22 +126,15 @@ const handleSaveClick = async (id) => {
 };
 
 async function handleCandidatesClick(offreId) {
-  // Fetch all "Candidature" objects
-  
+  console.log(offreId);
   const candidatures = await fetch('http://localhost:3001/Api/candidatures').then(res => res.json());
- const Ccandidatures = candidatures.candidatures;
-
-  // Filter "Candidature" objects that contain the same `offre._id`
-  const matchingCandidatures = Ccandidatures.filter(candidature => {
-    if (candidature.idOffre) {
-      
-      return candidature.idOffre._id === offreId;
-    }
-    return false;
-  });
   
-  // Fetch and return the corresponding "Candidat" objects
-  const fetchedCandidats = await Promise.all(matchingCandidatures.map(candidature => 
+ const Ccandidatures = candidatures.candidatures;
+ const matchingCandidatures = Ccandidatures.filter(candidature => {
+    console.log(candidature.idOffre._id);
+    return candidature.idOffre._id === offreId;});
+  
+  const fetchedCandidats: any[] = await Promise.all(matchingCandidatures.map(candidature => 
     fetch(`http://localhost:3001/Api/candidat?idCandidat=${candidature.idCandidat}`).then(res => res.json())
   ));
 
@@ -198,7 +195,7 @@ const serverUrl="http://localhost:3001/";
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col min-h-0">
+      <div className="flex flex-1 flex-col min-h-0">
         <div className="flex w-full h-14 items-center border-b px-4 md:px-6 shrink-0">
           <div className="flex w-full justify-end gap-2 ml-auto items-center">
             <div className="flex items-center gap-2">
@@ -273,7 +270,8 @@ const serverUrl="http://localhost:3001/";
             </div>
           )}
 
-        {offres.map((offre) => (
+        {offres.map((offre) => { handleCandidatesClick(offre._id);
+        return (
     <Card className="p-1 my-4 border-gray-400" key={offre._id}>
       <CardHeader>
           {editMode === offre._id ? (
@@ -297,7 +295,7 @@ const serverUrl="http://localhost:3001/";
 
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <Button onClick={() => handleCandidatesClick(offre._id)}>
+            <Button>
           Consulter les candidats
           </Button>
           </DropdownMenuTrigger>
@@ -346,9 +344,25 @@ const serverUrl="http://localhost:3001/";
           </Button>
         </CardFooter>
     </Card>
-  ))}
+  )
+})}
+  {showAddOffreForm && <>
+  <button className="h-6 w-6 my-2 text-white bg-black opacity-80 hover:bg-blue-700 border rounded-full" onClick={() => setShowAddOffreForm(false)}>X</button>
+    <AddOffreForm className="w-1 h-1"/>
+    </>
+   }
+     {!showAddOffreForm && (
+  <Button
+    className="bg-green-700 mx-8 px-6"
+    onClick={() => setShowAddOffreForm(true)}
+  >
+    Ajouter une annonce
+  </Button>
+)}
         </div>
+        
       </div>
+      
     </div>
     </>
   );
