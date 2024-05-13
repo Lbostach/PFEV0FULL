@@ -15,7 +15,7 @@ const offreSchema = new mongoose.Schema({
     },
     dateLimite: {
         type: Date,
-        required: true
+        default: () => Date.now() + 14 * 24 * 60 * 60 * 1000
     },
     prerequis: {
         type: String,

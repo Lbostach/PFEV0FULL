@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const {isEmail } = require('validator');
+const {isEmail} = require('validator');
 const bcrypt = require('bcrypt');
 
 // Define the schema for the candidat collection
@@ -25,20 +25,27 @@ const candidatSchema = new mongoose.Schema({
         minLength:[6,'Minimum password longth is 6 characters']
     },
     studyLevel: {
-        type: String
+        type: String,
+        default: null
     },
     domain: {
-        type: String
+        type: String,
+        default: null
     },
     skills: {
-        type: [String]
+        type: [String],
+        default: []
     },
     documents: {
-        type: [String]
+        type: [String],
+        default: []
     },
     picture: {
-        type: String
-    }
+        type: String,
+        default: null
+    },
+    
+    
 });
 
 candidatSchema.post('save',function(doc,next){

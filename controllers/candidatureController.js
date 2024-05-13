@@ -41,7 +41,6 @@ const postulerOffre = async (req, res) => {
 // Controller method to get all candidatures
 const getCandidatures = async (req, res) => {
   try {
-    
     const candidatures = await Candidature.find(req.query).populate('idOffre');
     res.status(200).json({ candidatures });
   } catch (error) {
