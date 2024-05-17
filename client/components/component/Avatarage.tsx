@@ -193,17 +193,19 @@ export default function Avatarage({ user }) {
       <SheetContent className="bg-gray-200 shadow-md overflow-auto">
         <SheetHeader>
           <div className="flex flex-col items-center justify-center text-xl font-bold overflow-hidden">
+            <div className="w-36 h-36 rounded-full overflow-hidden">
             <Image
               alt="Avatar"
-              className="object-cover w-1/2 h-1/2 border rounded-full"
-              height={200}
+              className="w-full h-full object-cover"
+              height={500}
               src={
                 user.candidat.picture
                   ? `http://localhost:3001/${user.candidat.picture}`
                   : "/personplaceholder.jpg"
               }
-              width={200}
+              width={500}
             />
+            </div>
             <Button
               className="rounded-full text-xs h-1/2 px-2 py-1 -my-2 bg-gray-400 text-black"
               onClick={handlePicSubmitClick}

@@ -94,9 +94,62 @@ const deleteOffre = async (id: string) => {
 };
 
 const [editMode, setEditMode] = useState<string | null>(null);
+
 const handleEditClick = (id: string) => {
   setEditMode(id);
 };
+
+const AccepterCandidat = () => {
+  const mailCandidat=selectedCandidat.email;
+  const mailRecruteur=user.email;
+  const passRecruteur=user.password;
+  try{
+    fetch(`http://localhost:3001/Api/recruteur/accepted`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({mailCandidat, mailRecruteur, passRecruteur}),
+    });
+  }catch(error){
+    console.error('Failed to send email:', error);
+  }
+}
+
+const RefuserCandidat = () => {
+  const mailCandidat=selectedCandidat.email;
+  const mailRecruteur=user.email;
+  const passRecruteur=user.password;
+  try{
+    fetch(`http://localhost:3001/Api/recruteur/refused`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({mailCandidat, mailRecruteur, passRecruteur}),
+    });
+  }catch(error){
+    console.error('Failed to send email:', error);
+  }
+}
+
+const PlanifierEntretien = () => {
+  const mailCandidat=selectedCandidat.email;
+  const mailRecruteur=user.email;
+  const passRecruteur=user.password;
+  try{
+    fetch(`http://localhost:3001/Api/recruteur/planifier`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({mailCandidat, mailRecruteur, passRecruteur}),
+    });
+  }catch(error){
+    console.error('Failed to send email:', error);
+  }
+}
+
 
 const handleSaveClick = async (id) => {
   try {
@@ -126,12 +179,11 @@ const handleSaveClick = async (id) => {
 };
 
 async function handleCandidatesClick(offreId) {
-  console.log(offreId);
+ 
   const candidatures = await fetch('http://localhost:3001/Api/candidatures').then(res => res.json());
-  
  const Ccandidatures = candidatures.candidatures;
  const matchingCandidatures = Ccandidatures.filter(candidature => {
-    console.log(candidature.idOffre._id);
+    console.log(candidature);
     return candidature.idOffre._id === offreId;});
   
   const fetchedCandidats: any[] = await Promise.all(matchingCandidatures.map(candidature => 
@@ -141,6 +193,14 @@ async function handleCandidatesClick(offreId) {
   setCandidats(fetchedCandidats);
   
 }
+
+useEffect(() => {
+  if (offres) {
+    offres.forEach(offre => {
+      handleCandidatesClick(offre._id);
+    });
+  }
+}, [offres]);
 
 const serverUrl="http://localhost:3001/";
   return (
@@ -258,10 +318,10 @@ const serverUrl="http://localhost:3001/";
               })}
             </div>
             <div className="flex space-x-2 justify-between items-center">
-            <Button className="my-4 bg-blue-600">Planifier un entretien</Button>
-            <Button className="bg-green-800">Accepter le candidat</Button>
+            <Button className="my-4 bg-blue-600" onClick={PlanifierEntretien}>Planifier un entretien</Button>
+            <Button className="bg-green-800" onClick={AccepterCandidat}>Accepter le candidat</Button>
             </div>
-            <Button className="bg-red-500">Refuser le candidat</Button>
+            <Button className="bg-red-500" onClick={RefuserCandidat}>Refuser le candidat</Button>
             
                 </div>
                 
@@ -270,7 +330,7 @@ const serverUrl="http://localhost:3001/";
             </div>
           )}
 
-        {offres.map((offre) => { handleCandidatesClick(offre._id);
+        {offres.map((offre) => {
         return (
     <Card className="p-1 my-4 border-gray-400" key={offre._id}>
       <CardHeader>
@@ -348,7 +408,7 @@ const serverUrl="http://localhost:3001/";
 })}
   {showAddOffreForm && <>
   <button className="h-6 w-6 my-2 text-white bg-black opacity-80 hover:bg-blue-700 border rounded-full" onClick={() => setShowAddOffreForm(false)}>X</button>
-    <AddOffreForm className="w-1 h-1"/>
+    <AddOffreForm idRecruteur={localStorage.getItem('idRecruteur')} className="w-1 h-1"/>
     </>
    }
      {!showAddOffreForm && (

@@ -52,8 +52,8 @@ export default function JobListings({ loggedInUser }) {
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <main className="flex overflow-hidden">
-        <section className="w-full h-full flex">
-          <div className="w-1/3 h-full overflow-y-auto border-r">
+        <section className="w-full h-full flex flex-1">
+          <div className="w-2/3 h-full border-r">
           <ul className="p-4 space-y-4">
               {offres.map((offre) => (
                 <li key={offre._id} onClick={() => handleCardClick(offre)} className="border p-4 shadow-md rounded-md cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">
@@ -65,8 +65,8 @@ export default function JobListings({ loggedInUser }) {
               ))}
             </ul>
           </div>
-          {selectedOffre && (<div className="w-full h-full overflow-y-auto p-4 border rounded-md">
-            <div className="p-12">
+          {selectedOffre && (<div className="w-full h-full p-4 border rounded-md">
+            <div className="p-16 -mx-8">
               <h2 className="text-3xl font-semibold">{selectedOffre.titre}</h2>
               <p className="text-sm text-gray-500 dark:text-gray-400 py-2">
                 {selectedOffre.domaine}

@@ -23,21 +23,21 @@ import {
   const formSchema = z.object({
     titre: z.string().min(3),
     description: z.string().min(30),
-    datePublication: z.string(),
-    dateLimite: z.string(),
     prerequis: z.string().min(10),
     niveauEtude: z.string().min(3),
     domaine: z.string().min(3),
   })
 
-export function AddOffreForm() {
+  interface AddOffreFormProps {
+    idRecruteur: string;
+  }
+
+export function AddOffreForm({ idRecruteur }: AddOffreFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       titre: "",
       description: "",
-      datePublication: "",
-      dateLimite: "",
       prerequis: "",
       niveauEtude: "",
       domaine: "",
@@ -50,21 +50,24 @@ export function AddOffreForm() {
     const {
       titre: titre,
       description: description,
-      datePublication: datePublication,
-      dateLimite: dateLimite,
       prerequis: prerequis,
       niveauEtude: niveauEtude,
       domaine: domaine,
     } = values;
 
-    console.log(values);
+    
+    const data = {
+      ...values,
+      idRecruteur: idRecruteur,
+    };
+    console.log(data);
     try {
       const response = await fetch("http://localhost:3001/Api/offres", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ titre, description, datePublication, dateLimite, prerequis, niveauEtude, domaine }),
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
@@ -105,31 +108,6 @@ export function AddOffreForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Description</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="datePublication"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Date de publication</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="dateLimite"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Date limite</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
