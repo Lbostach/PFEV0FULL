@@ -84,9 +84,9 @@ export default function SignupPage() {
       <div className="mx-auto w-full max-w-sm bg-white rounded-lg shadow-lg overflow-hidden md:max-w-md">
         <Card>
           <CardHeader>
-            <CardTitle className="text-3xl font-bold">Sign Up</CardTitle>
+            <CardTitle className="text-3xl font-bold">Boostez Votre Carrière : Inscrivez-Vous Maintenant ! </CardTitle>
             <CardDescription>
-              Enter the required information to sign up.
+             Enter Vos Informations Pour S'inscrire
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -101,7 +101,7 @@ export default function SignupPage() {
                 name="firstName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>First name</FormLabel>
+                    <FormLabel>Prénom</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -113,7 +113,7 @@ export default function SignupPage() {
                 name="lastName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Last name</FormLabel>
+                    <FormLabel>Nom</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -138,7 +138,7 @@ export default function SignupPage() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>Mot De Passe</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -146,14 +146,14 @@ export default function SignupPage() {
                 )}
               />
               <Button type="submit" className="w-full">
-                Submit
+                Valider
               </Button>
             </form>
           </Form>
           <div className="mt-4 text-center text-sm">
-            Already have an account?
+          Vous avez déjà un compte ?
             <Link href="/login" className="underline mx-1">
-              Log in
+              Se Connecter
             </Link>
           </div>
           </CardContent>

@@ -89,10 +89,10 @@ export default function Page() {
         <Card className="p-8">
           <CardHeader>
             <CardTitle className="text-3xl font-bold -mx-6">
-              Welcome back
+            Vous êtes les bienvenus !
             </CardTitle>
             <CardDescription className="-mx-6">
-              Enter your email and password to login
+              Entrer Votre Email et Mot de Passe Pour Se Connecter
             </CardDescription>
           </CardHeader>
           <Form {...form}>
@@ -114,7 +114,7 @@ export default function Page() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>Mot de passe</FormLabel>
                     <FormControl>
                       <Input type="password" {...field} />
                     </FormControl>
@@ -122,14 +122,14 @@ export default function Page() {
                 )}
               />
               <Button type="submit" className="w-full">
-                Submit
+                Valider
               </Button>
             </form>
           </Form>
           <div className="mt-4 my-4 text-center text-sm">
-            Don't have an account?
+          Vous n'avez pas un compte ?
             <Link className="underline mx-1" href="/signup">
-              Sign up
+              S'inscrire
             </Link>
           </div>
           <Link

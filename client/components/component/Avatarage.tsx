@@ -13,11 +13,11 @@ export default function Avatarage({ user }) {
     return null; // Or return a loading spinner, placeholder, etc.
   }
 
-  const [studyLevel, setStudyLevel] = useState(user.candidat.studyLevel);
-  const [domain, setDomain] = useState(user.candidat.domain);
+  const [studyLevel, setStudyLevel] = useState(user?.candidat?.studyLevel);
+  const [domain, setDomain] = useState(user?.candidat?.domain);
   const [editMode1, setEditMode1] = useState(false);
   const [editMode2, setEditMode2] = useState(false);
-  const [skills, setSkills] = useState(user.candidat.skills);
+  const [skills, setSkills] = useState(user?.candidat?.skills);
   const [showInput, setShowInput] = useState(false);
   const [newSkill, setNewSkill] = useState("");
 
@@ -46,7 +46,11 @@ export default function Avatarage({ user }) {
       }
     )
       .then((response) => response.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log(data) ;  window.location.reload() ;
+      }
+    )
+
       .catch((error) => {
         console.error("Error:", error);
       });
@@ -58,6 +62,7 @@ export default function Avatarage({ user }) {
     formData.append("file", file);
     const idCandidat = user.candidat._id;
     console.log(formData);
+
     fetch(
       `http://localhost:3001/Api/candidat/documents?idCandidat=${idCandidat}`,
       {
