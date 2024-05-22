@@ -101,8 +101,8 @@ const handleEditClick = (id: string) => {
 
 const AccepterCandidat = () => {
   const mailCandidat=selectedCandidat.email;
-  const mailRecruteur=user.email;
-  const passRecruteur=user.password;
+  const mailRecruteur=user.recruteur.email;
+  const passRecruteur=user.recruteur.password;
   try{
     fetch(`http://localhost:3001/Api/recruteur/accepted`, {
       method: 'POST',
@@ -118,8 +118,8 @@ const AccepterCandidat = () => {
 
 const RefuserCandidat = () => {
   const mailCandidat=selectedCandidat.email;
-  const mailRecruteur=user.email;
-  const passRecruteur=user.password;
+  const mailRecruteur=user.recruteur.email;
+  const passRecruteur=user.recruteur.password;
   try{
     fetch(`http://localhost:3001/Api/recruteur/refused`, {
       method: 'POST',
@@ -134,9 +134,10 @@ const RefuserCandidat = () => {
 }
 
 const PlanifierEntretien = () => {
+  console.log(user.recruteur.email);
   const mailCandidat=selectedCandidat.email;
-  const mailRecruteur=user.email;
-  const passRecruteur=user.password;
+  const mailRecruteur=user.recruteur.email;
+  const passRecruteur=user.recruteur.password;
   try{
     fetch(`http://localhost:3001/Api/recruteur/planifier`, {
       method: 'POST',
@@ -189,7 +190,6 @@ async function handleCandidatesClick(offreId) {
   const fetchedCandidats: any[] = await Promise.all(matchingCandidatures.map(candidature => 
     fetch(`http://localhost:3001/Api/candidat?idCandidat=${candidature.idCandidat}`).then(res => res.json())
   ));
-
   setCandidats(fetchedCandidats);
   
 }
