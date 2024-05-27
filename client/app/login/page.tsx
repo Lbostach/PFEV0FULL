@@ -89,10 +89,10 @@ export default function Page() {
         <Card className="p-8">
           <CardHeader>
             <CardTitle className="text-3xl font-bold -mx-6">
-            Vous êtes les bienvenus !
+            Bienvenue !
             </CardTitle>
             <CardDescription className="-mx-6">
-              Entrer Votre Email et Mot de Passe Pour Se Connecter
+              Entrez votre email et mot de passe pour se connecter.
             </CardDescription>
           </CardHeader>
           <Form {...form}>
@@ -127,9 +127,9 @@ export default function Page() {
             </form>
           </Form>
           <div className="mt-4 my-4 text-center text-sm">
-          Vous n'avez pas un compte ?
+          Vous n&apos;avez pas un compte ?
             <Link className="underline mx-1" href="/signup">
-              S'inscrire
+              S&apos;inscrire
             </Link>
           </div>
           <Link

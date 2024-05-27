@@ -84,9 +84,9 @@ export default function SignupPage() {
       <div className="mx-auto w-full max-w-sm bg-white rounded-lg shadow-lg overflow-hidden md:max-w-md">
         <Card>
           <CardHeader>
-            <CardTitle className="text-3xl font-bold">Boostez Votre Carrière : Inscrivez-Vous Maintenant ! </CardTitle>
+            <CardTitle className="text-3xl font-bold my-2">Inscription </CardTitle>
             <CardDescription>
-             Enter Vos Informations Pour S'inscrire
+             Entrez vos informations pour s&apos;inscrire.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -138,7 +138,7 @@ export default function SignupPage() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Mot De Passe</FormLabel>
+                    <FormLabel>Mot de passe</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -153,7 +153,7 @@ export default function SignupPage() {
           <div className="mt-4 text-center text-sm">
           Vous avez déjà un compte ?
             <Link href="/login" className="underline mx-1">
-              Se Connecter
+              Se connecter
             </Link>
           </div>
           </CardContent>

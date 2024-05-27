@@ -286,7 +286,7 @@ const serverUrl="http://localhost:3001/";
               </CardHeader>
               <CardContent>
                 <div className="space-y-2 flex flex-col items-center">
-                  <div>Niveau d'étude : {selectedCandidat.studyLevel}</div>
+                  <div>Niveau d&apos;étude : {selectedCandidat.studyLevel}</div>
                   <div>Domaine : {selectedCandidat.domain}</div>
                   <div>
               {selectedCandidat.skills.map((item, index) => (
@@ -396,11 +396,11 @@ const serverUrl="http://localhost:3001/";
             </Button>
           ) : (
             <Button className="mx-4" onClick={() => handleEditClick(offre._id)}>
-              Modifier L'annonce
+              Modifier L&apos;annonce
             </Button>
           )}
           <Button className="bg-red-500" onClick={() => deleteOffre(offre._id)}>
-            Supprimer l'annonce
+            Supprimer l&apos;annonce
           </Button>
         </CardFooter>
     </Card>

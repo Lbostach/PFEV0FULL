@@ -119,7 +119,7 @@ export function AddOffreForm({ idRecruteur }: AddOffreFormProps) {
                 name="prerequis"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Prérequis de l'offre </FormLabel>
+                    <FormLabel>Prérequis de l&apos;offre </FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -131,7 +131,7 @@ export function AddOffreForm({ idRecruteur }: AddOffreFormProps) {
                 name="niveauEtude"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Niveau d'étude requis</FormLabel>
+                    <FormLabel>Niveau d&apos;étude requis</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>

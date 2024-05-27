@@ -75,7 +75,7 @@ export default function JobListings({ loggedInUser }) {
                 {selectedOffre.description}
               </p>
               <div className="font-bold text-s space-y-2 py-2">
-                Niveau d'étude requis : {selectedOffre.niveauEtude}
+                Niveau d&apos;étude requis : {selectedOffre.niveauEtude}
               </div>
               <div className="font-bold text-s space-y-2 py-2">
                 Compétences requises : {selectedOffre.prerequis}
@@ -84,7 +84,7 @@ export default function JobListings({ loggedInUser }) {
                 Date de publication : {selectedOffre.datePublication}
               </div>
               <div className="font-bold text-s space-y-2 py-2">
-                Date limite de l'offre : {selectedOffre.dateLimite}
+                Date limite de l&apos;offre : {selectedOffre.dateLimite}
               </div>
               <div className="p-4 flex items-center justify-end">
                 <Button className="my-4 bg-blue-600 border" onClick={() => handlePostulerClick()}>Postuler</Button>

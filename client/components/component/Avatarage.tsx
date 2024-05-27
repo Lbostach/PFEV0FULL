@@ -9,9 +9,7 @@ import {
 import React, { useState, useEffect, useRef } from "react";
 
 export default function Avatarage({ user }) {
-  if (!user) {
-    return null; // Or return a loading spinner, placeholder, etc.
-  }
+
 
   const [studyLevel, setStudyLevel] = useState(user?.candidat?.studyLevel);
   const [domain, setDomain] = useState(user?.candidat?.domain);
@@ -230,7 +228,7 @@ export default function Avatarage({ user }) {
           <div>
             <ul>
               <li>
-                Niveau d'étude :
+                Niveau d&apos;étude :
                 {editMode1 ? (
                   <input
                     type="text"

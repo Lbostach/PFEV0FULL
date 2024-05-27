@@ -27,13 +27,16 @@ function Dashboard() {
         
       })
       .then(response => response.json())
-      .then(data => {setUser(data);
-    
+      .then(data => { setUser(data);
+        console.log(data);
     })
       .catch(error => console.error('Error:', error));
   }, []);
 
-console.log(user && user.candidat);
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
   return (
     <div className="flex w-full h-screen min-h-screen">
       <div className="hidden md:flex w-60 flex-col shrink-0 border-r bg-gray-100/50 dark:bg-gray-800/50">
@@ -95,7 +98,7 @@ console.log(user && user.candidat);
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-gray-300 animate-pulse dark:bg-gray-700" />
               <div className="w-9 h-9 overflow-hidden bg-gray-300 rounded-full dark:bg-gray-700">
-              <Avatarage user={user}/>
+            {user && <Avatarage user={user}/>}
               </div>
             </div>
           </div>
