@@ -81,7 +81,7 @@ export default function Page() {
             </CardTitle>
             <CardDescription className="-mx-6">
               
-            Entrer Votre Email et Mot de Passe Pour Se Connecter
+            Entrez votre email et mot de passe pour se connecter.
             </CardDescription>
           </CardHeader>
           <Form {...form}>

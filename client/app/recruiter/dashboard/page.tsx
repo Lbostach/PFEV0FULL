@@ -180,25 +180,34 @@ const handleSaveClick = async (id) => {
 };
 
 async function handleCandidatesClick(offreId) {
- 
   const candidatures = await fetch('http://localhost:3001/Api/candidatures').then(res => res.json());
- const Ccandidatures = candidatures.candidatures;
- const matchingCandidatures = Ccandidatures.filter(candidature => {
+  const Ccandidatures = candidatures.candidatures;
+  const matchingCandidatures = Ccandidatures.filter(candidature => {
     console.log(candidature);
-    return candidature.idOffre._id === offreId;});
+    return candidature.idOffre._id === offreId;
+  });
   
   const fetchedCandidats: any[] = await Promise.all(matchingCandidatures.map(candidature => 
     fetch(`http://localhost:3001/Api/candidat?idCandidat=${candidature.idCandidat}`).then(res => res.json())
   ));
-  setCandidats(fetchedCandidats);
-  
+
+  return fetchedCandidats;
 }
 
 useEffect(() => {
   if (offres) {
-    offres.forEach(offre => {
-      handleCandidatesClick(offre._id);
-    });
+    const fetchCandidats = async () => {
+      const offresWithCandidats = await Promise.all(offres.map(async offre => {
+        const candidats = await handleCandidatesClick(offre._id);
+        return { ...offre, candidats };
+      }));
+
+      if (JSON.stringify(offres) !== JSON.stringify(offresWithCandidats)) {
+        setOffres(offresWithCandidats);
+      }
+    };
+
+    fetchCandidats();
   }
 }, [offres]);
 
@@ -362,20 +371,20 @@ const serverUrl="http://localhost:3001/";
           <DropdownMenuContent>
          <DropdownMenuLabel>Candidats</DropdownMenuLabel> 
           
-          {Array.isArray(candidats) && candidats.map(index => {
-  const candidat = index.candidat;
+          {Array.isArray(offre.candidats) && offre.candidats.map(candidat => {
+  const candidatData = candidat.candidat;
   return (
     
-    <DropdownMenuItem key={candidat._id} onClick={() => setSelectedCandidat(candidat)}>
+    <DropdownMenuItem key={candidatData._id} onClick={() => setSelectedCandidat(candidatData)}>
       <img
-        src={`${serverUrl}${candidat.picture || "/personplaceholder.jpg"}`}
+        src={`${serverUrl}${candidatData.picture || "/personplaceholder.jpg"}`}
         alt=""
         width={24}
         height={24}
         className="rounded-full"
         />
         <div className="mx-1">
-      {candidat.firstName} {candidat.lastName}
+      {candidatData.firstName} {candidatData.lastName}
       </div>
       
     </DropdownMenuItem>

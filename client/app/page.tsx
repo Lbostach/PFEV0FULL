@@ -33,9 +33,11 @@ export default function Component() {
                 </NavigationMenuLink>
 
               </NavigationMenuItem>
+
               <NavigationMenuItem>
                 <NavigationMenuLink href="#">À propos</NavigationMenuLink>
               </NavigationMenuItem>
+              
               <NavigationMenuItem>
                 <NavigationMenuLink href="#">
                   Contactez-nous
@@ -138,7 +140,7 @@ export default function Component() {
                     Shorts Volt Cross
                   </h3>
                   <p className="mt-2 text-gray-600 dark:text-gray-400">
-                    Tissu extensible et évacuant l&apos;humidité pour un confort
+                    Tissu extensible et évacuant l'humidité pour un confort
                     optimal.
                   </p>
                   <div className="mt-4">
@@ -168,8 +170,8 @@ export default function Component() {
                     Baskets Volt Sports
                   </h3>
                   <p className="mt-2 text-gray-600 dark:text-gray-400">
-                    Soutien à fort impact et technologie d&apos;évacuation de
-                    l&apos;humidité.
+                    Soutien à fort impact et technologie d'évacuation de
+                    l'humidité.
                   </p>
                   <div className="mt-4">
                     <Link
@@ -242,10 +244,10 @@ export default function Component() {
                   permettent de réaliser pleinement votre potentiel.
                 </p>
                 <p className="text-gray-600 dark:text-gray-400 md:text-xl">
-                  Nous croyons au pouvoir de la qualité, de l&apos;innovation et
+                  Nous croyons au pouvoir de la qualité, de l'innovation et
                   durabilité. Chacun de nos produits est méticuleusement conçu
                   et fabriqué en utilisant les dernières technologies et
-                  respectueux de l&apos;environnement matériaux pour assurer un
+                  respectueux de l'environnement matériaux pour assurer un
                   maximum de confort, de durabilité et de style.
                 </p>
                 <div>

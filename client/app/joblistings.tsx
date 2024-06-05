@@ -1,6 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from 'react';
 
+function truncate(str, num) {
+  if (str.length <= num) {
+    return str;
+  }
+  return str.slice(0, num) + '...';
+}
+
 export default function JobListings({ loggedInUser }) {
 
 
@@ -58,9 +65,10 @@ export default function JobListings({ loggedInUser }) {
               {offres.map((offre) => (
                 <li key={offre._id} onClick={() => handleCardClick(offre)} className="border p-4 shadow-md rounded-md cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">
                   <h3 className="text-lg font-semibold">{offre.titre}</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {offre.description}
-                  </p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 overflow-hidden relative">
+  <span className="block">{truncate(offre.description, 100)}</span>
+  <div className="absolute bottom-0 w-full h-10 bg-gradient-to-t from-white to-transparent"></div>
+</p>
                 </li>
               ))}
             </ul>
