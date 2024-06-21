@@ -140,7 +140,7 @@ export default function SignupPage() {
                   <FormItem>
                     <FormLabel>Mot de passe</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input type="password" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
