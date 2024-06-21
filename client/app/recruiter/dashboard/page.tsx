@@ -111,6 +111,7 @@ const AccepterCandidat = () => {
       },
       body: JSON.stringify({mailCandidat, mailRecruteur, passRecruteur}),
     });
+    alert("Candidat notifié");
   }catch(error){
     console.error('Failed to send email:', error);
   }
@@ -128,6 +129,7 @@ const RefuserCandidat = () => {
       },
       body: JSON.stringify({mailCandidat, mailRecruteur, passRecruteur}),
     });
+    alert("Candidat refusé");
   }catch(error){
     console.error('Failed to send email:', error);
   }
@@ -146,6 +148,7 @@ const PlanifierEntretien = () => {
       },
       body: JSON.stringify({mailCandidat, mailRecruteur, passRecruteur}),
     });
+    alert("Entretien planifié");
   }catch(error){
     console.error('Failed to send email:', error);
   }

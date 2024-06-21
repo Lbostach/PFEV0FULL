@@ -240,16 +240,16 @@ export default function Avatarage({ user }) {
                   <span className="mx-1">
                     {studyLevel}
                     <Button
-                      className="rounded-full px-1/2 text-xs h-1 w-4 -my-1 mx-2"
+                      className="rounded-full px-1 text-xs h-1 w-4 -my-1 mx-2"
                       onClick={handleLiClick1}
                     >
-                      ?
+                      +
                     </Button>
                   </span>
                 )}
               </li>
 
-              <li onClick={handleLiClick2} className="my-1">
+              <li>
                 Domaine :
                 {editMode2 ? (
                   <input
@@ -259,7 +259,15 @@ export default function Avatarage({ user }) {
                     onChange={handleDomainChange}
                   />
                 ) : (
-                  <span className="mx-1">{domain}</span>
+                  <span className="mx-1">
+                    {domain}
+                    <Button
+                      className="rounded-full px-1 text-xs h-1 w-4 mx-2"
+                      onClick={handleLiClick2}
+                    >
+                      +
+                    </Button>
+                  </span>
                 )}
               </li>
             </ul>
